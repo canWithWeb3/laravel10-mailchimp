@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Spatie\Newsletter\Facades\Newsletter;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,5 +15,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $email = "canooo066@gmail.com";
+
+    if(!Newsletter::isSubscribed($email)){ // böyle bir abone var mı
+        // abone ekle
+        Newsletter::subscribe($email);
+        return "tamamdır";
+    }else{
+        // aboneliği silme
+        Newsletter::unsubscribe($email);
+    }
 });
